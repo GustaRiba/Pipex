@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmorais- < gmorais-@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: gmorais- <gmorais-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 10:57:28 by gmorais-          #+#    #+#             */
-/*   Updated: 2023/06/29 18:01:21 by gmorais-         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:30:00 by gmorais-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static int	wordcount(char const *str, char separ)
 
 	i = 0;
 	flag = 0;
+	if (!str)
+		return (i);
 	while (*str)
 	{
 		if (*str != separ && flag == 0)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   teste.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmorais- < gmorais-@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: gmorais- <gmorais-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 17:15:00 by gmorais-          #+#    #+#             */
-/*   Updated: 2023/06/29 17:57:01 by gmorais-         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:26:15 by gmorais-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,20 @@
 
 void	child_pro(char **argv, char **env, int *fd)
 {
-	int fin;
+	int	fin;
 
-	fin = open(argv[1], O_RDONLY, 0777);
+	fin = open(argv[1], O_RDONLY, 0644);
 	if (fin == -1)
+	{
 		error();
+		close(fin);
+		close(fd[1]);
+		close(fd[0]);
+	}
 	dup2(fd[1], STDOUT_FILENO);
 	dup2(fin, STDIN_FILENO);
+	close(fin);
+	close(fd[1]);
 	close(fd[0]);
 	exec(argv[2], env);
 }
@@ -28,13 +35,20 @@ void	child_pro(char **argv, char **env, int *fd)
 void	parent_pro(char **argv, char **env, int *fd)
 {
 	int	fileout;
-	
-	fileout = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+
+	fileout = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fileout == -1)
+	{
 		error();
+		close(fd[1]);
+		close(fd[0]);
+		close(fileout);
+	}
 	dup2(fd[0], STDIN_FILENO);
 	dup2(fileout, STDOUT_FILENO);
 	close(fd[1]);
+	close(fd[0]);
+	close(fileout);
 	exec(argv[3], env);
 }
 
@@ -44,7 +58,7 @@ void	error(void)
 	exit(EXIT_FAILURE);
 }
 
-int main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **env)
 {
 	int		fd[2];
 	pid_t	pid1;
@@ -58,8 +72,10 @@ int main(int argc, char **argv, char **env)
 			error();
 		if (pid1 == 0)
 			child_pro(argv, env, fd);
-		waitpid(pid1, NULL, 0);
+		waitpid(pid1, NULL, 1);
 		parent_pro(argv, env, fd);
+		close(fd[0]);
+		close(fd[1]);
 	}
 	else
 		ft_putstr_fd("Error!", 2);

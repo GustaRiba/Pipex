@@ -3,20 +3,20 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gmorais- < gmorais-@student.42lisboa.co    +#+  +:+       +#+         #
+#    By: gmorais- <gmorais-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/29 17:55:04 by gmorais-          #+#    #+#              #
-#    Updated: 2023/06/29 18:00:49 by gmorais-         ###   ########.fr        #
+#    Updated: 2023/07/12 16:33:56 by gmorais-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 
-SRCS_NAME =	teste.c\
+SRCS_NAME =	main.c\
 			utils.c
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g
 
 RM = rm -rf
 
@@ -43,3 +43,5 @@ fclean: clean
 		rm -f $(NAME)
 
 re: fclean all
+
+-rw-r--r-- 1 gmorais- 2022_lisboa 1779 Jul  5 12:39 main.c
