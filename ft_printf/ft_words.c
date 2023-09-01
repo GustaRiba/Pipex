@@ -1,30 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_words.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmorais- <gmorais-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 12:04:41 by gmorais-          #+#    #+#             */
-/*   Updated: 2023/09/01 14:23:11 by gmorais-         ###   ########.fr       */
+/*   Created: 2022/11/14 13:35:08 by gmorais-          #+#    #+#             */
+/*   Updated: 2023/09/01 12:17:54 by gmorais-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../pipex.h"
 
-int	ft_strlen(const char *str)
+void	ft_putchar(char c, int *len)
 {
-	int	i;
+	write(1, &c, 1);
+	(*len)++;
+}
+
+void	ft_putstr(char *str, int *len)
+{
+	size_t	i;
 
 	i = 0;
 	if (!str)
-		return (0);
+	{
+		write(1, "(null)", 6);
+		(*len) += 6;
+		return ;
+	}
 	while (str[i] != '\0')
 	{
+		ft_putchar(str[i], len);
 		i++;
 	}
-	return (i);
 }
-
-/*conta o numero de carcteres da string.
-um contador simples.*/

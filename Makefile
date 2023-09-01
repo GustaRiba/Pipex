@@ -3,17 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gmorais- <gmorais-@student.42.fr>          +#+  +:+       +#+         #
+#    By: gmorais- <gmorais-@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/29 17:55:04 by gmorais-          #+#    #+#              #
-#    Updated: 2023/07/12 16:33:56 by gmorais-         ###   ########.fr        #
+#    Updated: 2023/09/01 12:18:23 by gmorais-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 
-SRCS_NAME =	main.c\
-			utils.c
+SRCS_NAME =	main.c utils.c ./ft_printf/ft_printf.c\
+			./ft_printf/ft_numbers.c\
+			./ft_printf/ft_words.c\
 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -g
@@ -28,11 +29,11 @@ OBJS = $(SRCS_NAME:.c=.o)
 all: $(NAME)
 
 $(NAME) : $(OBJS) $(LIBFT)
-		$(CC) $(CFLAGS) $(OBJS) $(LIBFT)  -o $(NAME)
+		$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 
+#usado para ver se ja tem algo compilado no libft
 $(LIBFT):  $(shell make -C $(LIBFT_PATH) -q)
 	make  -s -C $(LIBFT_PATH)
-	make bonus  -s -C $(LIBFT_PATH)
 		
 clean:
 		make clean -s -C $(LIBFT_PATH)
@@ -43,5 +44,3 @@ fclean: clean
 		rm -f $(NAME)
 
 re: fclean all
-
--rw-r--r-- 1 gmorais- 2022_lisboa 1779 Jul  5 12:39 main.c

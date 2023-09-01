@@ -1,0 +1,11 @@
+ft_printf
+infile
+libft
+main.c
+main.o
+Makefile
+outfile
+pipex
+pipex.h
+utils.c
+utils.o
